@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace dotnet_websockets {
@@ -22,11 +15,21 @@ namespace dotnet_websockets {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-
-			services.AddControllers();
 			services.AddSwaggerGen(c => {
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "dotnet_websockets", Version = "v1" });
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "CRM", Version = "v1" });
 			});
+
+			// If using IIS:
+			services.Configure<IISServerOptions>(options => {
+				options.AllowSynchronousIO = true;
+			});
+
+			services.AddCors(options => {
+				options.AddDefaultPolicy(builder => {
+					builder.WithOrigins("http://localhost:3000");
+				});
+			});
+			services.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,15 +37,13 @@ namespace dotnet_websockets {
 			if (env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();
 				app.UseSwagger();
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "dotnet_websockets v1"));
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRM v1"));
 			}
-
 			app.UseHttpsRedirection();
-
 			app.UseRouting();
-
+			app.UseCors();
+			app.UseWebSockets();
 			app.UseAuthorization();
-
 			app.UseEndpoints(endpoints => {
 				endpoints.MapControllers();
 			});
