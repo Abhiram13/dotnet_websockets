@@ -19,6 +19,12 @@ namespace dotnet_websockets {
 			}
 		}
 
+      [HttpGet]
+      [Route("demo")]
+      public string Send() {
+			return "Hello Sockets";
+		}
+
 		private async Task Echo(WebSocket webSocket) {
 			var buffer = new byte[1024 * 4];
 			WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
