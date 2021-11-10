@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "3y3mPn5mjQcyNuAlJJYe5meyaKGPAwDPAxLXdSdIE34=",
+  "Source": "dotnet_websockets",
+  "BasePath": "_content/dotnet_websockets",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 namespace dotnet_websockets {
 	public class Startup {
@@ -15,10 +14,6 @@ namespace dotnet_websockets {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddSwaggerGen(c => {
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "CRM", Version = "v1" });
-			});
-
 			// If using IIS:
 			services.Configure<IISServerOptions>(options => {
 				options.AllowSynchronousIO = true;
@@ -36,8 +31,6 @@ namespace dotnet_websockets {
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 			if (env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();
-				app.UseSwagger();
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRM v1"));
 			}
 			app.UseHttpsRedirection();
 			app.UseRouting();

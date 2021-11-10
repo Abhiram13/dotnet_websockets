@@ -11,6 +11,7 @@ namespace dotnet_websockets {
 		[HttpGet]
 		[Route("soc")]
 		public async Task Sockets() {
+			Console.WriteLine(HttpContext.WebSockets);
 			if (HttpContext.WebSockets.IsWebSocketRequest) {
 				using WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
 				await Echo(webSocket);
