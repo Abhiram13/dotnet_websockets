@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Drawing;
 
 namespace dotnet_websockets {
 	[Route("")]
@@ -11,7 +12,6 @@ namespace dotnet_websockets {
 		[HttpGet]
 		[Route("soc")]
 		public async Task Sockets() {
-			Console.WriteLine(HttpContext.WebSockets);
 			if (HttpContext.WebSockets.IsWebSocketRequest) {
 				using WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
 				await Echo(webSocket);
