@@ -8,8 +8,7 @@ using System.Drawing;
 
 namespace dotnet_websockets {
 	[Route("")]
-	public class Api: Controller {
-		[HttpGet]
+	public class Api: Controller {      
 		[Route("soc")]
 		public async Task Sockets() {
 			if (HttpContext.WebSockets.IsWebSocketRequest) {
